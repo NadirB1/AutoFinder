@@ -9,21 +9,32 @@ Pré-requis
 
 1) Création et activation de l’environnement virtuel
 ----------------------------------------------------
+```bash
 python -m venv venv
-ou : python3 -m venv venv
+# ou :
+python3 -m venv venv
+```
 
 Linux / Mac :
+```bash
 source venv/bin/activate
+```
 
 Windows :
+```bat
 venv\Scripts\activate
+```
 
 2) Installation des dépendances
 -------------------------------
+```bash
 pip install -r requirements.txt
+```
 
 Si une erreur survient :
+```bash
 python -m pip install -r requirements.txt
+```
 
 3) Installation du modèle LLM (GGUF)
 ------------------------------------
@@ -36,7 +47,9 @@ dans le fichier :
 AutoFinder/llm_engine.py (ligne 6)
 
 Exemple :
+```python
 MODEL_PATH = "/chemin/vers/optimus-7b.Q5_K_M.gguf"
+```
 
 4) RAG et base de données vectorielle
 ------------------------------------
@@ -47,9 +60,11 @@ MODEL_PATH = "/chemin/vers/optimus-7b.Q5_K_M.gguf"
 
 5) Lancement de l’application
 -----------------------------
+```bash
 python app.py
-(à exécuter depuis la racine du projet)
+```
+(à exécuter depuis la racine du projet)  
 ⚠️ Le premier lancement peut prendre plusieurs minutes (chargement du modèle et génération des embeddings).
 
-L’application est accessible via :
+L’application est accessible via :  
 http://127.0.0.1:5000
