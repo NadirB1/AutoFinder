@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>AutoFInder</title>
+    <style>
+        :root {
+            --bg: #f6f6f7;
+            --panel: #ffffff;
+            --text: #111827;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 40px 18px 60px 18px;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .hero h1 {
+            margin: 0 0 8px 0;
+            font-size: 30px;
+            letter-spacing: 0.2px;
+        }
+        .hero p {
+            margin: 0;
+            color: var(--muted);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--panel);
+            padding: 18px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+        }
+        .card h2 {
+            margin: 0 0 6px 0;
+            font-size: 20px;
+        }
+        .card p {
+            margin: 0 0 14px 0;
+            color: var(--muted);
+        }
+        .card a {
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: #e5e7eb;
+            color: #111827;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="hero">
+            <h1>AutoFInder</h1>
+            <p>Accede au catalogue ou discute avec le chatbot.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h2>Catalogue</h2>
+                <p>Parcourir les voitures disponibles et filtrer par attributs.</p>
+                <a href="/catalogue">Ouvrir le catalogue</a>
+            </div>
+            <div class="card">
+                <h2>Chatbot</h2>
+                <p>Demande une voiture selon tes besoins et ton budget.</p>
+                <a href="/chatbot">Ouvrir le chatbot</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogue de voitures</title>
+    <style>
+        :root {
+            --bg: #f6f6f7;
+            --panel: #ffffff;
+            --text: #111827;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+        }
+        h1 {
+            text-align: center;
+            margin: 0 0 16px 0;
+            font-size: 26px;
+        }
+        .page {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 28px 18px 40px 18px;
+        }
+        .filter-row {
+            margin: 0 auto 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .filter-row input {
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        .filter-row .size-s {
+            width: 90px;
+        }
+        .filter-row .size-m {
+            width: 140px;
+        }
+        .filter-row .size-l {
+            width: 180px;
+        }
+        .voiture {
+            border: 1px solid var(--border);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: var(--panel);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+        }
+        .voiture p {
+            margin: 5px 0;
+        }
+        .voiture ul {
+            margin: 6px 0 0 18px;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1>Catalogue de voitures</h1>
+        <div class="filter-row">
+            <input id="filterId" class="size-s" type="text" placeholder="ID" />
+            <input id="filterAnnee" class="size-s" type="text" placeholder="Annee" />
+            <select id="filterMarque" class="size-s">
+                <option value="">Marque</option>
+                <option value="audi">Audi</option>
+                <option value="bmw">BMW</option>
+                <option value="chevrolet">Chevrolet</option>
+                <option value="datsun">Datsun</option>
+                <option value="fiat">Fiat</option>
+                <option value="force">Force</option>
+                <option value="ford">Ford</option>
+                <option value="hindustan">Hindustan</option>
+                <option value="honda">Honda</option>
+                <option value="hyundai">Hyundai</option>
+                <option value="isuzu">Isuzu</option>
+                <option value="jaguar">Jaguar</option>
+                <option value="jeep">Jeep</option>
+                <option value="land">Land</option>
+                <option value="mahindra">Mahindra</option>
+                <option value="maruti">Maruti</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="mercedes benz">Mercedes Benz</option>
+                <option value="mercedes-benz">Mercedes-Benz</option>
+                <option value="mini">Mini</option>
+                <option value="mitsubishi">Mitsubishi</option>
+                <option value="nissan">Nissan</option>
+                <option value="opel">Opel</option>
+                <option value="renault">Renault</option>
+                <option value="skoda">Skoda</option>
+                <option value="ssangyong">Ssangyong</option>
+                <option value="tata">Tata</option>
+                <option value="toyota">Toyota</option>
+                <option value="volkswagen">Volkswagen</option>
+                <option value="volvo">Volvo</option>
+            </select>
+            <input id="filterPrixMin" class="size-m" type="text" placeholder="Prix min" />
+            <input id="filterPrixMax" class="size-m" type="text" placeholder="Prix max" />
+            <input id="filterDistance" class="size-m" type="text" placeholder="Distance" />
+            <select id="filterTransmission" class="size-m">
+                <option value="">Transmission</option>
+                <option value="manuelle">Manuelle</option>
+                <option value="automatique">Automatique</option>
+            </select>
+            <input id="filterModele" class="size-l" type="text" placeholder="Modele" />
+            <select id="filterCarburant" class="size-l">
+                <option value="">Carburant</option>
+                <option value="essence">Essence</option>
+                <option value="diesel">Diesel</option>
+                <option value="electrique">Electrique</option>
+            </select>
+            <input id="filterOptions" class="size-l" type="text" placeholder="Options" />
+        </div>
+        {% for v in voitures %}
+        <div class="voiture"
+             data-id="{{ v['id'] }}"
+             data-marque="{{ v['marque'] }}"
+             data-modele="{{ v['modele'] }}"
+             data-annee="{{ v['annee'] }}"
+             data-carburant="{{ v['carburant'] }}"
+             data-transmission="{{ v['transmission'] }}"
+             data-options="{{ v['options']|join(' ') }}"
+             data-distance="{{ v['kilometrage_km'] }}"
+             data-prix="{{ v['prix'] }}">
+            <p><strong>ID:</strong> {{ v['id'] }}</p>
+            <p><strong>Marque:</strong> {{ v['marque'] }}</p>
+            <p><strong>Modèle:</strong> {{ v['modele'] }}</p>
+            <p><strong>Année:</strong> {{ v['annee'] }}</p>
+            <p><strong>Carburant:</strong> {{ v['carburant'] }}</p>
+            <p><strong>Transmission:</strong> {{ v['transmission'] }}</p>
+            <p><strong>Options:</strong> 
+                <ul>
+                {% for opt in v['options'] %}
+                    <li>{{ opt }}</li>
+                {% endfor %}
+                </ul>
+            </p>
+            <p><strong>Distance parcourue:</strong> {{ v['kilometrage_km'] }} km</p>
+            <p><strong>Prix:</strong> {{ v['prix'] }} DHS</p>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        const cards = Array.from(document.querySelectorAll(".voiture"));
+
+        const filters = [
+            { input: document.getElementById("filterId"), attr: "data-id", type: "eq" },
+            { input: document.getElementById("filterMarque"), attr: "data-marque", type: "text" },
+            { input: document.getElementById("filterModele"), attr: "data-modele", type: "text" },
+            { input: document.getElementById("filterAnnee"), attr: "data-annee", type: "eq" },
+            { input: document.getElementById("filterCarburant"), attr: "data-carburant", type: "text" },
+            { input: document.getElementById("filterTransmission"), attr: "data-transmission", type: "text" },
+            { input: document.getElementById("filterOptions"), attr: "data-options", type: "text" },
+            { input: document.getElementById("filterDistance"), attr: "data-distance", type: "max" },
+            { input: document.getElementById("filterPrixMin"), attr: "data-prix", type: "min" },
+            { input: document.getElementById("filterPrixMax"), attr: "data-prix", type: "max" },
+        ];
+
+        function toNumber(value) {
+            const cleaned = String(value).replace(/[^\d.-]/g, "");
+            const n = Number(cleaned);
+            return Number.isFinite(n) ? n : null;
+        }
+
+        function applyFilters() {
+            cards.forEach((card) => {
+                const ok = filters.every(({ input, attr, type }) => {
+                    const q = input.value.trim().toLowerCase();
+                    if (!q) return true;
+                    const val = (card.getAttribute(attr) || "").toLowerCase();
+                    const numQ = toNumber(q);
+                    const numVal = toNumber(val);
+
+                    if (numQ !== null && numVal !== null) {
+                        if (attr === "data-prix" || attr === "data-distance") {
+                            if (input.id === "filterPrixMin") return numVal >= numQ;
+                            if (input.id === "filterPrixMax") return numVal <= numQ;
+                            if (input.id === "filterDistance") return numVal <= numQ;
+                        }
+                        if (input.id === "filterId" || input.id === "filterAnnee") {
+                            return numVal === numQ;
+                        }
+                    }
+
+                    if (type === "eq") {
+                        return val === q;
+                    }
+                    return val.includes(q);
+                });
+                card.style.display = ok ? "" : "none";
+            });
+        }
+
+        function debounce(fn, delayMs) {
+            let t = null;
+            return (...args) => {
+                if (t) clearTimeout(t);
+                t = setTimeout(() => fn(...args), delayMs);
+            };
+        }
+
+        const debouncedApplyFilters = debounce(applyFilters, 1000);
+
+        filters.forEach(({ input }) => {
+            input.addEventListener("input", debouncedApplyFilters);
+        });
+    </script>
+</body>
+</html>

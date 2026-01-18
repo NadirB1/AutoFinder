@@ -1,0 +1,6 @@
+venv_autofinder/
+__pycache__/
+*.pyc
+chroma_db/
+*.sqlite3
+.DS_Store
